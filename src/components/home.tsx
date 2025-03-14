@@ -160,6 +160,12 @@ const Home = ({ title }: HomeProps) => {
             >
               {t("header.library")}
             </Link>
+            <Link
+              to="/about"
+              className="text-gray-500 hover:text-indigo-600 transition-colors"
+            >
+              {t("header.about")}
+            </Link>
           </div>
         </div>
       </footer>

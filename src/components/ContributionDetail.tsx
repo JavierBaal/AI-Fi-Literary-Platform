@@ -15,9 +15,11 @@ import {
   BookText,
   Server,
   UserCircle,
+  Share2,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { useLanguage } from "@/lib/language-context";
+import ShareButtons from "./ShareButtons";
 
 interface ContributionDetailProps {
   title?: string;
@@ -126,14 +128,23 @@ const ContributionDetail = ({
             </div>
           </div>
         </CardContent>
-        <CardFooter className="flex justify-between border-t pt-6">
-          <Button variant="outline" onClick={handleBackToLibrary}>
-            <ArrowLeft className="h-4 w-4 mr-2" />
-            {t("detail.back")}
-          </Button>
-          <Button variant="ghost" onClick={() => navigate("/")}>
-            {t("detail.return")}
-          </Button>
+        <CardFooter className="flex flex-col space-y-6 border-t pt-6">
+          <div className="w-full">
+            <ShareButtons
+              title={title}
+              excerpt={content.substring(0, 100) + "..."}
+            />
+          </div>
+
+          <div className="flex justify-between w-full">
+            <Button variant="outline" onClick={handleBackToLibrary}>
+              <ArrowLeft className="h-4 w-4 mr-2" />
+              {t("detail.back")}
+            </Button>
+            <Button variant="ghost" onClick={() => navigate("/")}>
+              {t("detail.return")}
+            </Button>
+          </div>
         </CardFooter>
       </Card>
     </div>

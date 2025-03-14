@@ -36,6 +36,12 @@ const Header = ({ title, showNavLinks = true }: HeaderProps) => {
             >
               {t("header.library")}
             </Link>
+            <Link
+              to="/about"
+              className="text-gray-600 hover:text-indigo-600 transition-colors font-medium"
+            >
+              {t("header.about")}
+            </Link>
           </nav>
         )}
         <LanguageToggle currentLanguage={language} onToggle={toggleLanguage} />

@@ -9,6 +9,18 @@ function App() {
       <>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route
+            path="/about"
+            element={React.lazy(() => import("./pages/about"))}
+          />
+          <Route
+            path="/library"
+            element={React.lazy(() => import("./pages/library"))}
+          />
+          <Route
+            path="/contribution/:id"
+            element={React.lazy(() => import("./pages/contribution/[id]"))}
+          />
         </Routes>
         {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
       </>
