@@ -15,13 +15,21 @@
 
 ### Internacionalización
 - Todas las cadenas de texto visibles deben usar el hook `useLanguage()` y la función `t()`
+- Usar la función `translate(key, defaultValue)` para manejar casos donde la clave podría no existir
 - Los archivos de traducción se organizan por secciones (common, about, library, etc.)
 - Formato para claves de traducción: `seccion.subseccion.elemento`
+
+### Integración con IA
+- Usar un sistema modular para soportar diferentes proveedores de API
+- No almacenar claves de API en el código o en el estado persistente
+- Proporcionar feedback claro durante las llamadas a la API
+- Implementar manejo de errores robusto para fallos en las llamadas a la API
 
 ### Estructura de Archivos
 - Las páginas principales van en `src/pages/`
 - Los componentes reutilizables van en `src/components/`
 - Las utilidades y funciones van en `src/lib/`
+- Los contextos van en `src/contexts/`
 - Las historias de Storybook van en `src/stories/`
 
 ## Preferencias de Desarrollo
@@ -31,6 +39,7 @@
 - Preferir destructuring para props
 - Tipar todas las props con TypeScript
 - Usar nombres descriptivos para componentes y funciones
+- Implementar manejo de errores para casos límite
 
 ### Comandos Frecuentes
 ```bash
@@ -47,17 +56,19 @@ npm run build
 - Desarrollar componentes primero en Storybook antes de integrarlos
 - Probar en múltiples tamaños de pantalla durante el desarrollo
 - Verificar traducciones en español e inglés
+- Implementar primero la versión básica y luego añadir mejoras incrementales
 ## Desafíos Conocidos
-- La integración con APIs externas de IA aún no está definida
+- La integración con APIs externas de IA requiere manejo seguro de claves API
 - El almacenamiento de contribuciones requiere decisiones sobre persistencia
 - La representación visual de diferentes "voces" de IA es un desafío de diseño
+- La determinación automática del tipo de contribución puede ser imprecisa
 ## Evolución del Proyecto
-- Inicialmente enfocado en establecer la base UI y conceptual
-- Próxima fase: implementación del sistema de contribuciones
-- Fase futura: posibles características sociales y de comunidad
+- Fase actual: implementación del sistema de contribuciones y biblioteca
+- Próxima fase: mejora de la experiencia de usuario y optimización
+- Fase futura: características sociales, comunidad y análisis de contribuciones
 ## Herramientas
 - Vite para desarrollo rápido
 - Storybook para documentación de componentes
-- Tempo para herramientas de diseño
 - React Router para navegación
 - Tailwind y Shadcn para UI
+- Context API para gestión de estado

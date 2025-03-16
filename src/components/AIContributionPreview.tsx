@@ -5,7 +5,7 @@ import { Textarea } from "./ui/textarea";
 import { Input } from "./ui/input";
 import { Separator } from "./ui/separator";
 import { Check, X, Edit3, User } from "lucide-react";
-import { useLanguage } from "@/lib/language-context";
+import { useLanguage } from "../contexts/LanguageContext";
 
 interface AIContributionPreviewProps {
   content?: string;
@@ -35,7 +35,16 @@ const AIContributionPreview = ({
   const [isEditing, setIsEditing] = useState(false);
   const [editedContent, setEditedContent] = useState(content);
   const [authorName, setAuthorName] = useState("");
+  // Añadir manejo de errores para las traducciones
   const { t } = useLanguage();
+  const translate = (key: string, defaultValue: string) => {
+    try {
+      return t(key, defaultValue);
+    } catch (error) {
+      console.warn(`Translation error for key: ${key}`, error);
+      return defaultValue;
+    }
+  };
 
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
@@ -56,7 +65,9 @@ const AIContributionPreview = ({
   return (
     <Card className="w-full max-w-4xl mx-auto p-6 bg-white shadow-md">
       <div className="mb-4">
-        <h2 className="text-2xl font-semibold mb-2">{t("preview.title")}</h2>
+        <h2 className="text-2xl font-semibold mb-2">{translate("preview.title", "Preview")}</h2>
+        
+        {/* Usar la función translate en lugar de t directamente */}
         <div className="flex items-center space-x-4">
           <div className="flex items-center">
             <span className="text-sm text-gray-500">{t("preview.type")}</span>

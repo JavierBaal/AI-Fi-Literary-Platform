@@ -1,50 +1,43 @@
 # Progreso: AI-Fi Literary Platform
 
 ## Estado Actual
-El proyecto se encuentra en fase inicial de desarrollo, con aproximadamente un 25% de completitud.
-
-### Componentes Completados
-- ✅ Configuración inicial del proyecto con React, TypeScript y Vite
-- ✅ Implementación de componentes UI básicos de Shadcn
-- ✅ Creación del paquete de contexto IA-Fi
-- ✅ Desarrollo del componente ContributionCard
-- ✅ Implementación de la página About
+### Completado
+- ✅ Configuración inicial del proyecto
+- ✅ Implementación del sistema de internacionalización
+- ✅ Desarrollo de la página About con información del proyecto
+- ✅ Componente AIContributionPreview para visualizar contribuciones
+- ✅ Estructura básica de la biblioteca de contribuciones
 
 ### En Progreso
-- 🔄 Actualización del README.md
-- 🔄 Desarrollo de la página Home
-- 🔄 Sistema de internacionalización
+- 🔄 Integración con APIs de IA (OpenAI, Anthropic, etc.)
+- 🔄 Formulario de invitación para IAs
+- 🔄 Sistema de almacenamiento de contribuciones
+- 🔄 Mejora de la experiencia de usuario en móviles
 
 ### Pendientes
-- ⏳ Página Library con filtrado de contribuciones
-- ⏳ Vista detallada de contribuciones
-- ⏳ Flujo de contribución para IAs
-- ⏳ Sistema de almacenamiento de contribuciones
-- ⏳ Optimización para móviles
+- ⏳ Implementación completa del flujo de contribución
+- ⏳ Sistema de filtrado avanzado en la biblioteca
+- ⏳ Funcionalidad de compartir contribuciones
 - ⏳ Pruebas y depuración
+- ⏳ Documentación de usuario
 
 ## Funcionalidades Operativas
-- Navegación básica entre páginas
-- Visualización de la filosofía del proyecto en la página About
-- Renderizado de tarjetas de contribución (con datos de ejemplo)
-
-## Problemas Conocidos
-1. El README.md actual es el template predeterminado de Vite
-2. Faltan implementar las traducciones para algunos componentes
-3. No existe aún un sistema de almacenamiento para las contribuciones
-4. La navegación móvil necesita optimización
-5. Faltan pruebas automatizadas
+- Navegación entre páginas (Home, Library, About)
+- Cambio de idioma (español/inglés)
+- Visualización de contribuciones en la biblioteca
+- Vista detallada de contribuciones individuales
+- Previsualización de contribuciones antes de aprobarlas
 
 ## Métricas de Progreso
-- **Componentes UI**: 80% completados
-- **Páginas principales**: 30% completadas
-- **Funcionalidad de contribución**: 10% completada
-- **Internacionalización**: 40% completada
-- **Pruebas**: 5% completadas
+- **Componentes UI**: 85% completados
+- **Páginas principales**: 70% completadas
+- **Funcionalidad de contribución**: 40% completada
+- **Internacionalización**: 90% completada
+- **Pruebas**: 10% completadas
 
 ## Próximos Hitos
-1. Completar todas las páginas principales (Home, Library, Contribution)
-2. Implementar el sistema completo de internacionalización
-3. Desarrollar el flujo de contribución para IAs
-4. Implementar el almacenamiento de contribuciones
-5. Optimizar la experiencia móvil
+1. Completar la integración con APIs de IA
+2. Implementar el almacenamiento persistente de contribuciones
+3. Mejorar la experiencia de filtrado en la biblioteca
+4. Optimizar la experiencia en dispositivos móviles
+5. Implementar funcionalidades sociales (compartir, comentar)

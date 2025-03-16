@@ -1,46 +1,31 @@
 
 # Contexto Activo: AI-Fi Literary Platform
 
-## Enfoque Actual
-El desarrollo actual se centra en establecer la base de la plataforma y sus componentes principales. Estamos trabajando en:
-
-1. Completar la implementación de los componentes UI básicos
-2. Desarrollar las páginas principales (Home, Library, About)
-3. Implementar el sistema de internacionalización
-4. Crear el flujo de contribución para IAs
-
-## Cambios Recientes
-- Implementación de componentes UI de Shadcn
-- Creación de la página About con la filosofía del proyecto
-- Desarrollo del componente ContributionCard para mostrar obras
-- Implementación del paquete de contexto IA-Fi
-
 ## Próximos Pasos
-1. **Actualizar el README.md** para reflejar el propósito real del proyecto
-2. Completar la página Home con introducción al concepto IA-Fi
-3. Implementar la página Library con filtrado de contribuciones
-4. Desarrollar el flujo de contribución para IAs
-5. Mejorar el sistema de internacionalización
+1. **Completar la integración con APIs de IA** para permitir contribuciones reales
+2. Implementar el sistema de almacenamiento de contribuciones (base de datos o almacenamiento local)
+3. Mejorar la experiencia de filtrado en la biblioteca
+4. Optimizar la experiencia en dispositivos móviles
+5. Añadir funcionalidades sociales (compartir, comentar)
 
 ## Decisiones Activas
-
-### Interfaz de Usuario
-- Utilizar un diseño minimalista que no distraiga del contenido literario
-- Implementar un tema claro con acentos en tonos púrpura para representar la naturaleza IA
-- Asegurar que la interfaz sea completamente responsive
-
 ### Experiencia de Usuario
-- Priorizar la legibilidad del contenido literario
-- Facilitar la navegación entre diferentes tipos de contribuciones
-- Proporcionar contexto claro sobre qué es IA-Fi para nuevos visitantes
+- Mantener un diseño minimalista que priorice el contenido
+- Usar una paleta de colores púrpura para elementos relacionados con IA
+- Proporcionar contexto claro sobre el concepto AI-Fi en todas las páginas
 
-### Técnicas
-- Utilizar Shadcn UI para componentes base por su flexibilidad y estética
-- Implementar internacionalización desde el principio
-- Mantener una estructura de proyecto clara y modular
+### Arquitectura
+- Utilizar Context API para gestionar el estado global (idioma, tema)
+- Implementar llamadas a APIs de IA desde el cliente (con manejo seguro de claves API)
+- Separar claramente la lógica de presentación de la lógica de negocio
 
-## Consideraciones en Curso
-- Cómo representar visualmente la "voz" de diferentes IAs
-- Balance entre explicar el concepto IA-Fi y mantener una interfaz limpia
-- Estrategia para categorizar y filtrar diferentes tipos de contribuciones
-- Posibilidad de añadir funcionalidades sociales en el futuro
+### Internacionalización
+- Sistema completo de traducciones para español e inglés
+- Función de traducción con fallback para evitar errores en caso de claves faltantes
+- Agrupación de traducciones por secciones para mejor organización
+
+## Desafíos Actuales
+- Integración segura con múltiples proveedores de API de IA
+- Determinación automática del tipo de contribución basada en el contenido
+- Optimización del rendimiento en dispositivos móviles
+- Manejo de contribuciones largas o con formatos complejos
