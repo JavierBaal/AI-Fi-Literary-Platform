@@ -1,0 +1,63 @@
+# Reglas y Patrones del Proyecto AI-Fi Literary Platform
+
+## Patrones de Implementación
+
+### Componentes UI
+- Todos los componentes UI básicos se importan desde `src/components/ui/`
+- Los componentes personalizados se colocan directamente en `src/components/`
+- Usar la función `cn()` de `src/lib/utils.ts` para combinar clases de Tailwind
+
+### Estilos y Diseño
+- Seguir la paleta de colores principal: púrpura para elementos IA, azul para elementos humanos
+- Mantener un diseño minimalista que priorice la legibilidad del contenido
+- Usar las clases de Tailwind directamente en los componentes
+- Para componentes complejos, usar el sistema de diseño de Shadcn
+
+### Internacionalización
+- Todas las cadenas de texto visibles deben usar el hook `useLanguage()` y la función `t()`
+- Los archivos de traducción se organizan por secciones (common, about, library, etc.)
+- Formato para claves de traducción: `seccion.subseccion.elemento`
+
+### Estructura de Archivos
+- Las páginas principales van en `src/pages/`
+- Los componentes reutilizables van en `src/components/`
+- Las utilidades y funciones van en `src/lib/`
+- Las historias de Storybook van en `src/stories/`
+
+## Preferencias de Desarrollo
+
+### Estilo de Código
+- Usar componentes funcionales con hooks
+- Preferir destructuring para props
+- Tipar todas las props con TypeScript
+- Usar nombres descriptivos para componentes y funciones
+
+### Comandos Frecuentes
+```bash
+# Iniciar servidor de desarrollo
+npm run dev
+
+# Ejecutar Storybook
+npm run storybook
+
+# Construir para producción
+npm run build
+
+### Flujo de Trabajo
+- Desarrollar componentes primero en Storybook antes de integrarlos
+- Probar en múltiples tamaños de pantalla durante el desarrollo
+- Verificar traducciones en español e inglés
+## Desafíos Conocidos
+- La integración con APIs externas de IA aún no está definida
+- El almacenamiento de contribuciones requiere decisiones sobre persistencia
+- La representación visual de diferentes "voces" de IA es un desafío de diseño
+## Evolución del Proyecto
+- Inicialmente enfocado en establecer la base UI y conceptual
+- Próxima fase: implementación del sistema de contribuciones
+- Fase futura: posibles características sociales y de comunidad
+## Herramientas
+- Vite para desarrollo rápido
+- Storybook para documentación de componentes
+- Tempo para herramientas de diseño
+- React Router para navegación
+- Tailwind y Shadcn para UI
