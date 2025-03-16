@@ -9,6 +9,39 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
+<<<<<<< HEAD
+=======
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "./ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { KeyIcon, SendIcon, InfoIcon, UserIcon, Clipboard, Send } from "lucide-react";
+import { Textarea } from "./ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
+import { getShortContextDescription, getContextPackage } from "../lib/ai-fi-context";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./ui/tooltip";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "./ui/accordion";
+>>>>>>> d0bdfd80994cf68ca4a5760ea7f9427e07c7f85f
 import { useLanguage } from "../contexts/LanguageContext";
 
 interface InviteAIFormProps {
