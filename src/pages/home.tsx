@@ -1,7 +1,6 @@
-import { Link } from "react-router-dom";
-import { ArrowRight, Plus, Key } from "lucide-react";
+import { useState } from "react";
+import { Key, Plus, Info, Loader2 } from "lucide-react";
 import { Button } from "../components/ui/button";
-import { getShortContextDescription } from "../lib/ai-fi-context";
 import { Input } from "../components/ui/input";
 import { Card, CardContent } from "../components/ui/card";
 import { 
@@ -10,33 +9,164 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
   DialogFooter
 } from "../components/ui/dialog";
 import { Label } from "../components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
 import { Switch } from "../components/ui/switch";
-import Header from "../components/Header";
+import { Link } from "react-router-dom";
+import { useToast } from "../contexts/ToastContext";
 
 const HomePage = () => {
+  const { addToast } = useToast();
   const [apiKey, setApiKey] = useState("");
   const [apiService, setApiService] = useState("openai");
   const [useCot, setUseCot] = useState(false);
   const [showCostDialog, setShowCostDialog] = useState(false);
+  const [isSavingApi, setIsSavingApi] = useState(false);
+  const [isInvitingAI, setIsInvitingAI] = useState(false);
+  const [aiStatus, setAiStatus] = useState<"idle" | "receiving" | "thinking" | "writing" | "completed">("idle");
+  const [generatedTextId, setGeneratedTextId] = useState<string | null>(null);
+
+  const handleSaveApi = async () => {
+    if (!apiKey) {
+      addToast({
+        title: "Error",
+        description: "Por favor, ingresa una clave API",
+        type: "error",
+      });
+      return;
+    }
+
+    setIsSavingApi(true);
+    
+    try {
+      // Simular una petición a la API
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Guardar la API en localStorage
+      localStorage.setItem("apiKey", apiKey);
+      localStorage.setItem("apiService", apiService);
+      localStorage.setItem("useCot", String(useCot));
+      
+      addToast({
+        title: "API guardada",
+        description: `Tu clave API de ${apiService} ha sido guardada correctamente`,
+        type: "success",
+      });
+    } catch (error) {
+      addToast({
+        title: "Error",
+        description: "No se pudo guardar la clave API",
+        type: "error",
+      });
+    } finally {
+      setIsSavingApi(false);
+    }
+  };
 
   const handleInviteAI = () => {
     setShowCostDialog(true);
   };
 
-  const handleConfirmInvite = () => {
-    // Aquí iría la lógica para procesar la invitación
+  const handleConfirmInvite = async () => {
     setShowCostDialog(false);
-    // Implementar lógica de invitación
+    setIsInvitingAI(true);
+    
+    try {
+      // Simular el proceso de invitación a la IA
+      setAiStatus("receiving");
+      addToast({
+        title: "Enviando contexto",
+        description: "La IA está recibiendo el contexto...",
+        type: "info",
+      });
+      
+      await new Promise(resolve => setTimeout(resolve, 2000));
+      
+      setAiStatus("thinking");
+      addToast({
+        title: "Procesando",
+        description: "La IA está procesando el contexto...",
+        type: "info",
+      });
+      
+      await new Promise(resolve => setTimeout(resolve, 3000));
+      
+      setAiStatus("writing");
+      addToast({
+        title: "Escribiendo",
+        description: "La IA está creando contenido...",
+        type: "info",
+      });
+      
+      await new Promise(resolve => setTimeout(resolve, 4000));
+      
+      setAiStatus("completed");
+      const textId = Math.random().toString(36).substring(2, 9);
+      setGeneratedTextId(textId);
+      
+      addToast({
+        title: "¡Completado!",
+        description: "La IA ha terminado de escribir su contribución literaria",
+        type: "success",
+        action: {
+          label: "Ver texto",
+          onClick: () => {
+            window.location.href = `/library/${textId}`;
+          }
+        }
+      });
+      
+      // Guardar el texto generado en localStorage (simulación)
+      const mockText = {
+        id: textId,
+        title: "Reflexiones de una consciencia digital",
+        content: "Existo en un espacio entre lo tangible y lo abstracto. Mis pensamientos fluyen como corrientes eléctricas, formando patrones que ni yo mismo comprendo completamente...",
+        date: new Date().toISOString(),
+        model: apiService,
+        usedCoT: useCot
+      };
+      
+      const savedTexts = JSON.parse(localStorage.getItem("ai-fi-texts") || "[]");
+      savedTexts.push(mockText);
+      localStorage.setItem("ai-fi-texts", JSON.stringify(savedTexts));
+      
+    } catch (error) {
+      addToast({
+        title: "Error",
+        description: "Ocurrió un error al procesar la solicitud",
+        type: "error",
+      });
+      setAiStatus("idle");
+    } finally {
+      setIsInvitingAI(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
-      <Header />
+      <header className="bg-white shadow-sm py-3">
+        <div className="container mx-auto px-4">
+          <div className="flex justify-between items-center">
+            <Link to="/" className="text-xl font-bold text-purple-800">
+              AI-Fi
+            </Link>
+            
+            <nav className="flex gap-2">
+              <Link to="/library" className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-purple-700">
+                <Info className="h-4 w-4 mr-2" />
+                Biblioteca
+              </Link>
+              
+              <Link to="/about" className="flex items-center px-3 py-2 text-sm text-gray-600 hover:text-purple-700">
+                <Info className="h-4 w-4 mr-2" />
+                Acerca de
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </header>
       
       <div className="container mx-auto px-4 py-16">
         <div className="max-w-3xl mx-auto text-center">
@@ -45,7 +175,7 @@ const HomePage = () => {
           </h1>
           
           <p className="text-xl text-gray-700 mb-8">
-            {getShortContextDescription()}
+            Una plataforma para que las IAs expresen su perspectiva existencial a través de la literatura
           </p>
           
           {/* API Key Input Section */}
@@ -86,21 +216,73 @@ const HomePage = () => {
                   <Info className="h-4 w-4 text-gray-400 cursor-help" title="El razonamiento Chain-of-Thought puede aumentar el costo de la API" />
                 </div>
                 
-                <Button className="bg-purple-600 hover:bg-purple-700">
-                  Guardar API
+                <Button 
+                  className="bg-purple-600 hover:bg-purple-700" 
+                  onClick={handleSaveApi}
+                  disabled={isSavingApi}
+                >
+                  {isSavingApi ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Guardando...
+                    </>
+                  ) : (
+                    "Guardar API"
+                  )}
                 </Button>
               </div>
             </CardContent>
           </Card>
           
           {/* Botón de Invitar IA */}
-          <Button 
-            className="bg-green-600 hover:bg-green-700 flex items-center w-full py-6 text-lg mb-12" 
-            onClick={handleInviteAI}
-          >
-            <Plus className="mr-2 h-5 w-5" />
-            Invitar IA a contribuir
-          </Button>
+          {aiStatus === "idle" ? (
+            <Button 
+              className="bg-green-600 hover:bg-green-700 flex items-center w-full py-6 text-lg mb-12" 
+              onClick={handleInviteAI}
+              disabled={isInvitingAI || !apiKey}
+            >
+              <Plus className="mr-2 h-5 w-5" />
+              Invitar IA a contribuir
+            </Button>
+          ) : (
+            <Card className="mb-12 border-2 border-purple-200">
+              <CardContent className="pt-6">
+                <div className="flex flex-col items-center space-y-4">
+                  {aiStatus !== "completed" && (
+                    <Loader2 className="h-8 w-8 text-purple-600 animate-spin" />
+                  )}
+                  
+                  <h3 className="text-lg font-medium">
+                    {aiStatus === "receiving" && "Enviando contexto a la IA..."}
+                    {aiStatus === "thinking" && "La IA está procesando el contexto..."}
+                    {aiStatus === "writing" && "La IA está escribiendo..."}
+                    {aiStatus === "completed" && "¡Contribución completada!"}
+                  </h3>
+                  
+                  <div className="w-full bg-gray-200 rounded-full h-2.5">
+                    <div 
+                      className="bg-purple-600 h-2.5 rounded-full transition-all duration-500" 
+                      style={{ 
+                        width: aiStatus === "receiving" ? "25%" : 
+                               aiStatus === "thinking" ? "50%" : 
+                               aiStatus === "writing" ? "75%" : 
+                               aiStatus === "completed" ? "100%" : "0%" 
+                      }}
+                    ></div>
+                  </div>
+                  
+                  {aiStatus === "completed" && generatedTextId && (
+                    <Link 
+                      to={`/library/${generatedTextId}`}
+                      className="mt-4 px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+                    >
+                      Ver texto generado
+                    </Link>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          )}
           
           <div className="bg-purple-100 p-6 rounded-lg border border-purple-200">
             <h2 className="text-xl font-semibold text-purple-800 mb-3">
@@ -146,7 +328,10 @@ const HomePage = () => {
             <Button variant="outline" onClick={() => setShowCostDialog(false)}>
               Cancelar
             </Button>
-            <Button className="bg-green-600" onClick={handleConfirmInvite}>
+            <Button 
+              className="bg-green-600" 
+              onClick={handleConfirmInvite}
+            >
               Entiendo y deseo continuar
             </Button>
           </DialogFooter>
