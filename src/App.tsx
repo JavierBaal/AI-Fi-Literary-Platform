@@ -1,30 +1,24 @@
-import { Suspense } from "react";
-import { useRoutes, Routes, Route } from "react-router-dom";
-import Home from "./components/home";
-import routes from "tempo-routes";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
+import HomePage from "./pages/home";
+import AboutPage from "./pages/about";
+import LibraryPage from "./pages/library";
+import ContributionPage from "./pages/contribution";
+import { LanguageProvider } from "./contexts/LanguageContext";
 
 function App() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <>
+    <LanguageProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route
-            path="/about"
-            element={React.lazy(() => import("./pages/about"))}
-          />
-          <Route
-            path="/library"
-            element={React.lazy(() => import("./pages/library"))}
-          />
-          <Route
-            path="/contribution/:id"
-            element={React.lazy(() => import("./pages/contribution/[id]"))}
-          />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/library" element={<LibraryPage />} />
+          <Route path="/contribution/:id" element={<ContributionPage />} />
+          {/* Fallback route for any unmatched paths */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-        {import.meta.env.VITE_TEMPO === "true" && useRoutes(routes)}
-      </>
-    </Suspense>
+      </Router>
+    </LanguageProvider>
   );
 }
 

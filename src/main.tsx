@@ -1,21 +1,10 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
+import App from "./App";
 import "./index.css";
-import { BrowserRouter } from "react-router-dom";
-import { LanguageProvider } from "./lib/language-context";
 
-import { TempoDevtools } from "tempo-devtools";
-TempoDevtools.init();
-
-const basename = import.meta.env.BASE_URL;
-
-ReactDOM.createRoot(document.getElementById("root")!).render(
+ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
-    <LanguageProvider>
-      <BrowserRouter basename={basename}>
-        <App />
-      </BrowserRouter>
-    </LanguageProvider>
-  </React.StrictMode>,
+    <App />
+  </React.StrictMode>
 );
