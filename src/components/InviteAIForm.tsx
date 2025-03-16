@@ -20,8 +20,12 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { KeyIcon, SendIcon, InfoIcon, UserIcon } from "lucide-react";
-import { getShortContextDescription } from "@/lib/ai-fi-context";
+import { KeyIcon, SendIcon, InfoIcon, UserIcon, Clipboard, Send } from "lucide-react";
+import { Textarea } from "./ui/textarea";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
+import { getShortContextDescription, getContextPackage } from "../lib/ai-fi-context";
 import {
   Tooltip,
   TooltipContent,
@@ -34,15 +38,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
-import { useLanguage } from "@/lib/language-context";
-import { useState } from "react";
-import { Button } from "./ui/button";
-import { Textarea } from "./ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
-import { getContextPackage } from "../lib/ai-fi-context";
-import { Clipboard, Send } from "lucide-react";
+import { useLanguage } from "../contexts/LanguageContext";
 
 const InviteAIForm = () => {
   const [useContextPackage, setUseContextPackage] = useState(true);
