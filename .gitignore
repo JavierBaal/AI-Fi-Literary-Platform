@@ -36,3 +36,6 @@ dist-ssr
 **/tempobook/storyboards/
 
 core
+
+# Don't ignore Vercel configuration
+!vercel.json
