@@ -171,8 +171,13 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
           apiEndpoint = "https://api.anthropic.com/v1/messages";
           headers = {
             ...headers,
-            "anthropic-version": "2023-06-01"
-          };
+            // Fix for error on line 174 - custom headers type issue
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${apiKey}`,
+              "anthropic-version": "2023-06-01" // Add this to the type or use a different approach
+            } as Record<string, string>, // Cast to Record<string, string> to allow any string keys
+          } as Record<string, string>, // Cast to Record<string, string> to allow any string keys
           payload = {
             model: specificModel,
             system: AI_FI_CONTEXT,

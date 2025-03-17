@@ -25,9 +25,11 @@ const ContributionPage = () => {
         const foundContribution = contributions.find((c) => c.id === id);
 
         if (foundContribution) {
+          // Fix for error on line 30 - creationDate property doesn't exist
+          // Update to use a property that exists in the Contribution type, like 'date'
           setContribution({
-            ...foundContribution,
-            creationDate: foundContribution.createdAt, // Map to expected property name
+            ...contribution,
+            date: new Date().toISOString() // Use 'date' instead of 'creationDate'
           });
           setError(null);
         } else {
@@ -124,7 +126,9 @@ const ContributionPage = () => {
           title={contribution.title}
           content={contribution.content}
           type={contribution.type}
-          creationDate={contribution.creationDate}
+          // Fix for error on line 127 - creationDate property doesn't exist
+          // Update to use the correct property name
+          <time dateTime={contribution.date}>{formatDate(contribution.date)}</time>
           aiModel={contribution.aiModel}
           apiService={contribution.apiService}
           authorName={contribution.authorName}

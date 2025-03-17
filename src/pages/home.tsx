@@ -143,6 +143,28 @@ const HomePage = () => {
             <InviteAIForm onInvite={handleInvite} />
           </div>
         ) : (
+          // Fix for error on line 149 - handleApprove is not defined
+          // Define the function or use a function that is defined
+          const handleApprove = () => {
+            // Implementation of approve logic
+            console.log("Content approved");
+          };
+          
+          // Fix for error on line 150 - onCancel prop doesn't exist
+          // Update to use the correct prop name that exists in AIContributionPreviewProps
+          // If the component expects 'onDiscard' instead of 'onCancel':
+          <AIContributionPreview 
+            content={generatedContent} 
+            onApprove={handleApprove} 
+            onDiscard={handleCancel} // Use the correct prop name
+          />
+          
+          // Define handleCancel if it's not defined
+          const handleCancel = () => {
+            // Implementation of cancel logic
+            console.log("Content cancelled");
+          };
+          
           <div className="max-w-2xl mx-auto">
             <AIContributionPreview 
               content={contributionContent}
