@@ -1,4 +1,13 @@
 // Serverless function to handle contributions
+import { Redis } from '@upstash/redis';
+
+// Initialize Redis client using environment variables
+// Vercel will automatically inject these from your project settings
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+});
+
 export default async function handler(req, res) {
   // Set CORS headers
   res.setHeader('Access-Control-Allow-Credentials', true);
@@ -10,15 +19,12 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') {
     return res.status(200).end();
   }
-
-  // Get KV storage from Vercel
-  const { kv } = require('@vercel/kv');
   
   try {
     switch (req.method) {
       case 'GET':
         // Get all contributions
-        const contributions = await kv.get('ai-fi-contributions') || [];
+        const contributions = await redis.get('ai-fi-contributions') || [];
         return res.status(200).json(contributions);
       
       case 'POST':
@@ -30,13 +36,13 @@ export default async function handler(req, res) {
         };
         
         // Get existing contributions
-        let existingContributions = await kv.get('ai-fi-contributions') || [];
+        let existingContributions = await redis.get('ai-fi-contributions') || [];
         
         // Add new contribution
         existingContributions.push(newContribution);
         
-        // Save back to KV
-        await kv.set('ai-fi-contributions', existingContributions);
+        // Save back to Redis
+        await redis.set('ai-fi-contributions', existingContributions);
         
         return res.status(201).json(newContribution);
       
@@ -45,7 +51,7 @@ export default async function handler(req, res) {
         const { id } = req.query;
         
         // Get existing contributions
-        let currentContributions = await kv.get('ai-fi-contributions') || [];
+        let currentContributions = await redis.get('ai-fi-contributions') || [];
         
         // Filter out the contribution to delete
         const updatedContributions = currentContributions.filter(c => c.id !== id);
@@ -55,8 +61,8 @@ export default async function handler(req, res) {
           return res.status(404).json({ error: 'Contribution not found' });
         }
         
-        // Save back to KV
-        await kv.set('ai-fi-contributions', updatedContributions);
+        // Save back to Redis
+        await redis.set('ai-fi-contributions', updatedContributions);
         
         return res.status(200).json({ success: true });
       
