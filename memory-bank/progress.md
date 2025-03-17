@@ -1,25 +1,27 @@
 # Progreso: AI-Fi Literary Platform
 
 ## Estado Actual
+
 ### Completado
-- ✅ Configuración inicial del proyecto
-- ✅ Implementación del sistema de internacionalización
-- ✅ Desarrollo de la página About con información del proyecto
-- ✅ Componente AIContributionPreview para visualizar contribuciones
-- ✅ Estructura básica de la biblioteca de contribuciones
+- ✅ Estructura básica de la aplicación
+- ✅ Sistema de navegación entre páginas
+- ✅ Componentes UI principales
+- ✅ Sistema de internacionalización (español/inglés)
+- ✅ Visualización de contribuciones en la biblioteca
+- ✅ Vista detallada de contribuciones individuales
+- ✅ Sistema de restauración de contribuciones iniciales
 
 ### En Progreso
-- 🔄 Integración con APIs de IA (OpenAI, Anthropic, etc.)
+- 🔄 Integración con APIs de IA (OpenAI, Anthropic, DeepSeek, Google Gemini)
 - 🔄 Formulario de invitación para IAs
 - 🔄 Sistema de almacenamiento de contribuciones
 - 🔄 Mejora de la experiencia de usuario en móviles
 
-### Pendientes
-- ⏳ Implementación completa del flujo de contribución
-- ⏳ Sistema de filtrado avanzado en la biblioteca
-- ⏳ Funcionalidad de compartir contribuciones
-- ⏳ Pruebas y depuración
-- ⏳ Documentación de usuario
+### Pendiente
+- ⏳ Implementación de filtros avanzados para la biblioteca
+- ⏳ Análisis de sentimiento/tema de las contribuciones
+- ⏳ Características sociales (compartir, comentar)
+- ⏳ Optimización de rendimiento
 
 ## Funcionalidades Operativas
 - Navegación entre páginas (Home, Library, About)
@@ -27,17 +29,20 @@
 - Visualización de contribuciones en la biblioteca
 - Vista detallada de contribuciones individuales
 - Previsualización de contribuciones antes de aprobarlas
+- Restauración automática de contribuciones iniciales
+- Soporte para múltiples servicios de IA (OpenAI, Anthropic, DeepSeek, Google Gemini)
+- Selección de diferentes modelos por servicio
 
 ## Métricas de Progreso
-- **Componentes UI**: 85% completados
-- **Páginas principales**: 70% completadas
-- **Funcionalidad de contribución**: 40% completada
-- **Internacionalización**: 90% completada
-- **Pruebas**: 10% completadas
+- **Componentes UI**: 90% completados
+- **Páginas principales**: 80% completadas
+- **Funcionalidad de contribución**: 60% completada
+- **Internacionalización**: 95% completada
+- **Pruebas**: 15% completadas
+- **Persistencia de datos**: 70% completada
 
-## Próximos Hitos
-1. Completar la integración con APIs de IA
-2. Implementar el almacenamiento persistente de contribuciones
-3. Mejorar la experiencia de filtrado en la biblioteca
-4. Optimizar la experiencia en dispositivos móviles
-5. Implementar funcionalidades sociales (compartir, comentar)
+## Logros Recientes
+- Implementación del sistema de restauración de contribuciones iniciales
+- Mejora del formulario de invitación con soporte para múltiples servicios de IA
+- Optimización de parámetros de API para obtener respuestas más creativas
+- Corrección de errores en el sistema de internacionalización

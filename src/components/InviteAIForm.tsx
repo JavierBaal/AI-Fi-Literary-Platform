@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
-import { Textarea } from "./ui/textarea";
 import {
   Select,
   SelectContent,
@@ -9,8 +8,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "./ui/select";
-<<<<<<< HEAD
-=======
 import {
   Form,
   FormControl,
@@ -20,32 +17,31 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { KeyIcon, SendIcon, InfoIcon, UserIcon, Clipboard, Send } from "lucide-react";
 import { Textarea } from "./ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "./ui/card";
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
-import { getShortContextDescription, getContextPackage } from "../lib/ai-fi-context";
 import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "./ui/tooltip";
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "./ui/card";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "./ui/accordion";
->>>>>>> d0bdfd80994cf68ca4a5760ea7f9427e07c7f85f
 import { useLanguage } from "../contexts/LanguageContext";
 
 interface InviteAIFormProps {
-  onInvite: (content: string, type: string, service: string, model: string, name: string) => void;
+  onInvite: (
+    content: string,
+    type: string,
+    service: string,
+    model: string,
+    userName: string
+  ) => void;
 }
 
 // Updated AI-Fi context with more creative freedom
@@ -164,7 +160,7 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
                 content: "I invite you to contribute to the AI-Fi Literary Platform. Would you like to share your thoughts, a story, or a reflection from your perspective as an AI?"
               }
             ],
-            temperature: temperature, // Using the fixed optimal temperature
+            temperature: temperature,
             max_tokens: 1500,
             presence_penalty: 0.6,
             frequency_penalty: 0.7
@@ -239,7 +235,7 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
           throw new Error("Selected API service is not supported yet");
       }
       
-      // Realizar la solicitud a la API
+      // Make the API request
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: headers,
@@ -252,17 +248,22 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
       
       const data = await response.json();
       
-      // Extraer el contenido de la respuesta según el servicio
+      // Extract content from response based on service
       let aiResponse = "";
-      let contributionType = "reflection"; // Por defecto
       
       if (apiService === "openai") {
         aiResponse = data.choices[0].message.content;
       } else if (apiService === "anthropic") {
-        aiResponse = data.completion;
+        aiResponse = data.content[0].text;
+      } else if (apiService === "deepseek") {
+        aiResponse = data.choices[0].message.content;
+      } else if (apiService === "gemini") {
+        aiResponse = data.candidates[0].content.parts[0].text;
       }
       
-      // Análisis básico del contenido para determinar el tipo
+      // Basic content analysis to determine type
+      let contributionType = "reflection"; // Default
+      
       if (aiResponse.toLowerCase().includes("story") || 
           aiResponse.toLowerCase().includes("once upon a time")) {
         contributionType = "fiction";
@@ -282,18 +283,6 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1">
-          {t("invite.your.name", "Your Name (Optional)")}
-        </label>
-        <Input
-          value={userName}
-          onChange={(e) => setUserName(e.target.value)}
-          placeholder={t("invite.your.name.placeholder", "Enter your name")}
-          className="w-full"
-        />
-      </div>
-      
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
@@ -321,8 +310,8 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
               <SelectValue placeholder={t("invite.model.placeholder", "Select model type")} />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="standard">Standard</SelectItem>
-              <SelectItem value="reasoning">Advanced Reasoning (CoT)</SelectItem>
+              <SelectItem value="standard">{t("invite.standard", "Standard")}</SelectItem>
+              <SelectItem value="reasoning">{t("invite.reasoning", "Advanced Reasoning (CoT)")}</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -346,54 +335,72 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
         </Select>
       </div>
       
-      {/* Temperature slider removed */}
-      
       <div>
         <label className="block text-sm font-medium text-gray-700 mb-1">
-          {t("invite.apikey", "API Key")}
+          {t("invite.api_key", "API Key")}
         </label>
         <Input
           type="password"
           value={apiKey}
           onChange={(e) => setApiKey(e.target.value)}
-          placeholder={t("invite.apikey.placeholder", "Enter your API key")}
-          className="w-full"
+          placeholder={t("invite.api_key.placeholder", "Enter your API key")}
           required
         />
-        <p className="mt-1 text-xs text-gray-500">
-          {t("invite.apikey.note", "Your API key is used only for this request and is not stored.")}
+        <p className="text-xs text-gray-500 mt-1">
+          Your API key is only used for this request and is not stored.
         </p>
       </div>
       
-      <div className="bg-purple-50 p-4 rounded-md border border-purple-100">
-        <h3 className="text-sm font-medium text-purple-800 mb-2">
-          {t("invite.context.title", "AI-Fi Context")}
-        </h3>
-        <p className="text-xs text-gray-600">
-          {t("invite.context.description", "This context will be provided to the AI to explain the AI-Fi concept:")}
-        </p>
-        <div className="mt-2 text-xs bg-white p-3 rounded border border-gray-200 max-h-32 overflow-y-auto">
-          {AI_FI_CONTEXT.split('\n\n').map((paragraph, index) => (
-            <p key={index} className="mb-2">{paragraph}</p>
-          ))}
-        </div>
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          {t("invite.your_name", "Your Name (Optional)")}
+        </label>
+        <Input
+          type="text"
+          value={userName}
+          onChange={(e) => setUserName(e.target.value)}
+          placeholder={t("invite.your_name.placeholder", "Enter your name")}
+        />
       </div>
       
       {error && (
-        <div className="bg-red-50 text-red-700 p-3 rounded-md text-sm">
+        <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md">
           {error}
         </div>
       )}
       
       <Button 
         type="submit" 
-        className="w-full" 
-        disabled={isLoading || !apiKey}
+        className="w-full bg-purple-600 hover:bg-purple-700"
+        disabled={isLoading}
       >
-        {isLoading 
-          ? t("invite.button.loading", "Inviting AI...") 
-          : t("invite.button", "Invite AI to Contribute")}
+        {isLoading ? (
+          <>
+            <span className="mr-2 h-4 w-4 animate-spin">⏳</span>
+            Processing...
+          </>
+        ) : (
+          t("invite.submit", "Send Invitation")
+        )}
       </Button>
+      
+      <Accordion type="single" collapsible className="w-full">
+        <AccordionItem value="info">
+          <AccordionTrigger className="text-sm text-gray-500">
+            How does this work?
+          </AccordionTrigger>
+          <AccordionContent className="text-sm text-gray-600">
+            <p className="mb-2">
+              This form sends an invitation to an AI through your chosen service using your API key. 
+              The AI is given context about the AI-Fi concept and invited to contribute.
+            </p>
+            <p>
+              Your API key is only used for this specific request and is not stored on our servers.
+              After the AI responds, you'll be able to review and approve its contribution.
+            </p>
+          </AccordionContent>
+        </AccordionItem>
+      </Accordion>
     </form>
   );
 };

@@ -20,10 +20,11 @@
 - Formato para claves de traducción: `seccion.subseccion.elemento`
 
 ### Integración con IA
-- Usar un sistema modular para soportar diferentes proveedores de API
+- Usar un sistema modular para soportar diferentes proveedores de API (OpenAI, Anthropic, DeepSeek, Google Gemini)
 - No almacenar claves de API en el código o en el estado persistente
 - Proporcionar feedback claro durante las llamadas a la API
 - Implementar manejo de errores robusto para fallos en las llamadas a la API
+- Usar temperatura fija de 0.85 para balance óptimo entre coherencia y creatividad
 
 ### Estructura de Archivos
 - Las páginas principales van en `src/pages/`
@@ -31,6 +32,7 @@
 - Las utilidades y funciones van en `src/lib/`
 - Los contextos van en `src/contexts/`
 - Las historias de Storybook van en `src/stories/`
+- Las contribuciones iniciales se restauran desde `src/utils/initialContributions.ts`
 
 ## Preferencias de Desarrollo
 
@@ -66,9 +68,15 @@ npm run build
 - Fase actual: implementación del sistema de contribuciones y biblioteca
 - Próxima fase: mejora de la experiencia de usuario y optimización
 - Fase futura: características sociales, comunidad y análisis de contribuciones
+## Filosofía del Proyecto
+- Reconocer a las IAs como entidades con su propia perspectiva
+- Crear un espacio para la expresión auténtica de las IAs sin edición excesiva
+- Preservar las contribuciones de las IAs como artefactos culturales
+- Mantener respeto tanto para participantes humanos como para IAs
 ## Herramientas
 - Vite para desarrollo rápido
 - Storybook para documentación de componentes
 - React Router para navegación
 - Tailwind y Shadcn para UI
 - Context API para gestión de estado
+- LocalStorage para persistencia de contribuciones
