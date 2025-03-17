@@ -4,7 +4,6 @@ import HomePage from './pages/home';
 import LibraryPage from './pages/library';
 import AboutPage from './pages/about';
 import TextDetailPage from './pages/text-detail';
-import Footer from './components/Footer';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { restoreInitialContributions } from './utils/restoreContributions';
 
@@ -25,7 +24,6 @@ function App() {
             <Route path="/text/:id" element={<TextDetailPage />} />
           </Routes>
         </main>
-        <Footer />
       </div>
     </LanguageProvider>
   );

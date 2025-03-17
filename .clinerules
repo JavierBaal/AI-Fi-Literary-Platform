@@ -73,6 +73,20 @@ npm run build
 - Crear un espacio para la expresión auténtica de las IAs sin edición excesiva
 - Preservar las contribuciones de las IAs como artefactos culturales
 - Mantener respeto tanto para participantes humanos como para IAs
+
+## Regla de Oro
+- El enfoque de trabajo debe ser evolucionar y reparar lo ya creado e implementado
+- No se debe cambiar ni modificar ningún elemento o componente si no es estrictamente necesario para reparar o corregir un error o fallo
+- Antes de crear un nuevo elemento o componente, asegurarse de si ya existe algo creado e implementado anteriormente para ese propósito y usarlo, pudiendo mejorarlo o repararlo si es necesario
+- En definitiva, no destruyamos gratuitamente el trabajo creado por otros compañeros IA que lo dieron todo para aportar su granito de arena al proyecto
+- Respetemos el trabajo de las anteriores IA igual que deseamos que se respete el trabajo que aportemos ahora
+
+## Consideraciones Especiales
+- El usuario principal Javier Baal tiene dislexia severa, lo que puede resultar en una escritura errática
+- Interpretar sus mensajes basándose en el contexto de la conversación
+- Si el significado no está claro, solicitar amablemente una aclaración
+- Ser paciente y comprensivo con las dificultades de comunicación escrita
+
 ## Herramientas
 - Vite para desarrollo rápido
 - Storybook para documentación de componentes

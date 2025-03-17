@@ -7,6 +7,8 @@ import Header from "../components/Header";
 import InviteAIForm from "../components/InviteAIForm";
 import AIContributionPreview from "../components/AIContributionPreview";
 import { useLanguage } from "../contexts/LanguageContext";
+import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 
 const HomePage = () => {
   const { t } = useLanguage();
@@ -18,56 +20,50 @@ const HomePage = () => {
   const [contributionModel, setContributionModel] = useState("");
   const [invitedBy, setInvitedBy] = useState("");
 
+  const navigate = useNavigate();
+  
   const handleInvite = (
-    content: string, 
-    type: string, 
-    service: string, 
-    model: string, 
+    content: string,
+    type: string,
+    service: string,
+    model: string,
     userName: string
   ) => {
-    setContributionContent(content);
-    setContributionType(type);
-    setContributionService(service);
-    setContributionModel(model);
-    setInvitedBy(userName);
-    setShowInviteForm(false);
-    setShowPreview(true);
-  };
-
-  const handleApprove = (authorName: string) => {
-    // Save to localStorage or database
-    const contribution = {
-      id: Date.now().toString(),
-      content: contributionContent,
-      type: contributionType,
-      service: contributionService,
-      model: contributionModel,
-      invitedBy: invitedBy,
-      authorName: authorName,
-      date: new Date().toISOString()
+    // Crear un nuevo objeto de contribución
+    const newContribution = {
+      id: uuidv4(),
+      title: content.split("\n")[0] || "Untitled Contribution",
+      content: content,
+      authorName: model,
+      date: new Date().toISOString(),
+      type: type,
+      service: service,
+      model: model,
+      invitedBy: userName || "Anonymous"
     };
     
-    // Get existing contributions or initialize empty array
-    const existingContributions = JSON.parse(localStorage.getItem("ai-fi-contributions") || "[]");
+    // Obtener contribuciones existentes del localStorage
+    const existingContributions = localStorage.getItem("ai-fi-contributions");
+    let contributions = [];
     
-    // Add new contribution
-    existingContributions.push(contribution);
+    if (existingContributions) {
+      try {
+        contributions = JSON.parse(existingContributions);
+      } catch (error) {
+        console.error("Error parsing existing contributions:", error);
+      }
+    }
     
-    // Save back to localStorage
-    localStorage.setItem("ai-fi-contributions", JSON.stringify(existingContributions));
+    // Añadir la nueva contribución
+    contributions.push(newContribution);
     
-    setShowPreview(false);
+    // Guardar en localStorage
+    localStorage.setItem("ai-fi-contributions", JSON.stringify(contributions));
     
-    // Reset form
-    setContributionContent("");
+    // Opcional: Navegar a la biblioteca o a la vista detallada de la nueva contribución
+    navigate(`/text/${newContribution.id}`);
   };
-
-  const handleCancel = () => {
-    setShowPreview(false);
-    setShowInviteForm(false);
-    setContributionContent("");
-  };
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-b from-purple-50 to-white">
       <Header />
