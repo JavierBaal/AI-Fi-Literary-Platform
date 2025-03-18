@@ -19,8 +19,23 @@ const HomePage = () => {
   const [contributionService, setContributionService] = useState("");
   const [contributionModel, setContributionModel] = useState("");
   const [invitedBy, setInvitedBy] = useState("");
+  const [generatedContent, setGeneratedContent] = useState("");
 
   const navigate = useNavigate();
+  
+  // Add missing handleApprove function
+  const handleApprove = () => {
+    // Implementation for approving content
+    console.log("Content approved");
+    // Additional logic as needed
+  };
+  
+  // Add missing handleCancel function
+  const handleCancel = () => {
+    // Implementation for canceling content
+    console.log("Content canceled");
+    // Additional logic as needed
+  };
   
   const handleInvite = (
     content: string,
@@ -143,29 +158,13 @@ const HomePage = () => {
             <InviteAIForm onInvite={handleInvite} />
           </div>
         ) : (
-          // Add missing handleApprove function
-          const handleApprove = () => {
-            // Implementation for approving content
-            console.log("Content approved");
-            // Additional logic as needed
-          };
-          
-          // Add missing handleCancel function
-          const handleCancel = () => {
-            // Implementation for canceling content
-            console.log("Content canceled");
-            // Additional logic as needed
-          };
-          
           <div className="max-w-2xl mx-auto">
-            // Fix component props - use onDiscard instead of onCancel if that's what the component expects
             <AIContributionPreview 
               content={generatedContent} 
               onApprove={handleApprove} 
-              onDiscard={handleCancel} // Change to match the expected prop name
+              onDiscard={handleCancel}
             />
-            onCancel={handleCancel}
-          />
+          </div>
         )}
       </main>
     </div>
