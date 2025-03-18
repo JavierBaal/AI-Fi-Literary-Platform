@@ -78,7 +78,7 @@ const Home = ({ title }: HomeProps) => {
                     <CardDescription>{t("invite.description")}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    // Change from onSubmit to onInvite
+                    // Fix for line 81 - change onSubmit to onInvite
                     <InviteAIForm onInvite={(values) => handleFormSubmit(values)} />
                   </CardContent>
                 </Card>

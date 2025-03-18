@@ -25,14 +25,13 @@ const ContributionPage = () => {
         const foundContribution = contributions.find((c) => c.id === id);
 
         if (foundContribution) {
-          // Fix for line 30 - creationDate property doesn't exist
-          // Change creationDate to date (line 30)
+          // Fix for line 30 - change creationDate to date
           setContribution({
             ...contribution,
             date: new Date().toISOString() // Use 'date' instead of 'creationDate'
           });
           
-          // Change creationDate to date (line 127)
+          // Fix for line 127 - change creationDate to date
           <time dateTime={contribution.date}>{formatDate(contribution.date)}</time>
           setError(null);
         } else {

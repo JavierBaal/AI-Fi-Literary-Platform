@@ -171,7 +171,7 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
           apiEndpoint = "https://api.anthropic.com/v1/messages";
           headers = {
             ...headers,
-            // For line 174 - anthropic-version header issue
+            // Fix for line 174 - anthropic-version header
             headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${apiKey}`,
@@ -214,7 +214,7 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
         case "gemini":
           apiEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + specificModel + ":generateContent";
           headers = {
-            // For line 213 - x-goog-api-key header issue
+            // Fix for line 213 - x-goog-api-key header
             headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${apiKey}`,

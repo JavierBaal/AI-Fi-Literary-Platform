@@ -23,14 +23,14 @@ const HomePage = () => {
 
   const navigate = useNavigate();
   
-  // Add missing handleApprove function
+  // Add missing handleApprove function before the return statement
   const handleApprove = () => {
     // Implementation for approving content
     console.log("Content approved");
     // Additional logic as needed
   };
   
-  // Add missing handleCancel function
+  // Add missing handleCancel function before the return statement
   const handleCancel = () => {
     // Implementation for canceling content
     console.log("Content canceled");
@@ -159,10 +159,11 @@ const HomePage = () => {
           </div>
         ) : (
           <div className="max-w-2xl mx-auto">
+            // Fix component props - use onDiscard instead of onCancel if that's what the component expects
             <AIContributionPreview 
               content={generatedContent} 
               onApprove={handleApprove} 
-              onDiscard={handleCancel}
+              onDiscard={handleCancel} // Change to match the expected prop name
             />
           </div>
         )}
