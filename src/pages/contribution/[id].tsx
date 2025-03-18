@@ -26,10 +26,14 @@ const ContributionPage = () => {
 
         if (foundContribution) {
           // Fix for line 30 - creationDate property doesn't exist
+          // Change creationDate to date (line 30)
           setContribution({
             ...contribution,
             date: new Date().toISOString() // Use 'date' instead of 'creationDate'
           });
+          
+          // Change creationDate to date (line 127)
+          <time dateTime={contribution.date}>{formatDate(contribution.date)}</time>
           setError(null);
         } else {
           // Fallback to mock data if not found

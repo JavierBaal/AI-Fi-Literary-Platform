@@ -78,8 +78,7 @@ const Home = ({ title }: HomeProps) => {
                     <CardDescription>{t("invite.description")}</CardDescription>
                   </CardHeader>
                   <CardContent>
-                    // Fix for line 81 - onSubmit prop doesn't exist in InviteAIFormProps
-                    // Change to use the correct prop name (likely onInvite)
+                    // Change from onSubmit to onInvite
                     <InviteAIForm onInvite={(values) => handleFormSubmit(values)} />
                   </CardContent>
                 </Card>
