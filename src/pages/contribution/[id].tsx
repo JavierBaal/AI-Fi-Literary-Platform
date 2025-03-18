@@ -3,6 +3,8 @@ import { useParams, useNavigate } from "react-router-dom";
 import ContributionDetail from "../../components/ContributionDetail";
 import { useLanguage } from "@/lib/language-context";
 import { contributions, Contribution } from "@/data/contributions";
+import { useLanguage } from "@/lib/language-context";
+import { contributions, Contribution } from "@/data/contributions";
 
 const ContributionPage = () => {
   const { id } = useParams<{ id: string }>();
