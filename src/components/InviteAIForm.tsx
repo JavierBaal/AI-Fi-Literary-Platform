@@ -171,13 +171,13 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
           apiEndpoint = "https://api.anthropic.com/v1/messages";
           headers = {
             ...headers,
-            // Fix for error on line 174 - custom headers type issue
+            // For line 174 error - anthropic-version header
             headers: {
               "Content-Type": "application/json",
               "Authorization": `Bearer ${apiKey}`,
-              "anthropic-version": "2023-06-01" // Add this to the type or use a different approach
-            } as Record<string, string>, // Cast to Record<string, string> to allow any string keys
-          } as Record<string, string>, // Cast to Record<string, string> to allow any string keys
+              "anthropic-version": "2023-06-01"
+            } as Record<string, string>, // Cast to allow any string keys
+          } as Record<string, string>, // Cast to allow any string keys
           payload = {
             model: specificModel,
             system: AI_FI_CONTEXT,
@@ -214,8 +214,12 @@ const InviteAIForm = ({ onInvite }: InviteAIFormProps) => {
         case "gemini":
           apiEndpoint = "https://generativelanguage.googleapis.com/v1beta/models/" + specificModel + ":generateContent";
           headers = {
-            "Content-Type": "application/json",
-            "x-goog-api-key": apiKey
+            // For line 213 error - x-goog-api-key header
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `Bearer ${apiKey}`,
+              "x-goog-api-key": apiKey
+            } as Record<string, string>, // Cast to allow any string keys
           };
           payload = {
             contents: [
